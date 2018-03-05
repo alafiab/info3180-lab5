@@ -74,6 +74,13 @@ def flash_errors(form):
 
 # user_loader callback. This callback is used to reload the user object from
 # the user ID stored in the session
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    flash('You have been logged out.','danger')
+    return redirect(url_for('home'))
+
 @login_manager.user_loader
 def load_user(id):
     return UserProfile.query.get(int(id))
