@@ -14,11 +14,6 @@ from forms import UserForm
 from werkzeug.utils import secure_filename
 import os
 
-
-###
-# Routing for your application.
-###
-
 @app.route('/')
 def home():
     return render_template('home.html')
