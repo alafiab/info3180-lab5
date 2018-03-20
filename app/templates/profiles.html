@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block main %}
+
+<h1 class="page-header">Add Profile</h1>
+{% for user in users %}
+    <div class="row photo">
+        <img class="card-img-top" src="{{url_for('static', filename= user.photo) }}" alt="Profile picture">
+    </div>
+    
+    <p>
+        {{user.first_name}} {{user.last_name}}
+        {{user.gender}}
+        {{user.location}}
+        <a href='/profile/{{user.userid}}'>View Profile</a>
+    </p>
+{% endfor %}
+
+{%endblock%}

@@ -1,0 +1,2 @@
+DB_URL = 'postgresql://rjbrjpnryxbqmm:4d6ab507c820963240aa2cc4ab358dfc879b2961e7c82dc6aa9bb5a3286dc1a2@ec2-23-23-222-184.compute-1.amazonaws.com:5432/df1glh082k0rh'
+HEROKU_POSTGRESQL_PUCE_URL='postgresql://cqtzjzluwwjqtr:defd25c7b5b53a44ab220b620ed1d54402a9bfb78be0678e7463a9abec600ef4@ec2-54-204-44-140.compute-1.amazonaws.com:5432/d3t6r57cj1nh3u'
