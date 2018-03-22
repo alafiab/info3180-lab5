@@ -31,7 +31,7 @@ def profile():
     form = UserForm()
     user= None
     if request.method =='POST' and form.validate_on_submit():
-        first_name,last_name,gender,email,location,bio,photo = [form.first_name.data,form.last_name.data,form.gender.data,form.email.data,form.location.data,form.bio.data,form.photo.data]
+        first_name,last_name,gender,email,location,bio,photo = [form.first_name.data,form.last_name.data,form.gender.data,form.created_on.data,form.email.data,form.location.data,form.bio.data,form.photo.data]
         if not UserProfile.query.filter_by(email=email).first():
             if gender == 'F':
                 gender = "FEMALE"
@@ -41,7 +41,7 @@ def profile():
             filename= secure_filename(photo.filename)
             photo.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
             user = UserProfile(first_name = first_name, last_name = last_name, 
-                gender = gender, bio = bio, photo = filename, location = location, email = email)
+                gender = gender, created_on= created_on,bio = bio, photo = filename, location = location, email = email)
             
             db.session.add(user)
             db.session.commit()

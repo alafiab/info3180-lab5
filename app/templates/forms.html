@@ -6,16 +6,16 @@
 {% include 'flash_messages.html' %}
 
 {# Add the appropriate method and enctype attributes to the form tag to allow for file uploads #}
-<form action="{{ url_for('profile') }}" method= "POST" enctype="multipart/form-data">
+<form action="{{ url_for('profile') }}" method= "POST" enctype="multipart/form-data" class="form">
  {{ form.csrf_token}}
   <div class="form-group">
  	 {{form.first_name.label}}<br>
- 	 {{form.first_name}}
+ 	 {{form.first_name(size=30)}}
   </div>
  
   <div class="form-group">
  	 {{ form.last_name.label }}<br>
- 	 {{ form.last_name }}
+ 	 {{ form.last_name(size=30) }}
   </div>
  
   <div class="form-group">
@@ -25,22 +25,22 @@
  
   <div class="form-group">
  	 {{form.email.label}}<br>
- 	 {{form.email}}
+ 	 {{form.email (size=30)}}
   </div>
  
   <div class="form-group">
  	 {{form.location.label}}<br>
- 	 {{form.location}}
+ 	 {{form.location (size=30)}}
   </div>
  
   <div class="form-group">
  	 {{form.bio.label}}<br>
- 	 {{form.bio}}
+ 	 {{form.bio (size=50)}}
   </div>
 
   <div class="form-group">
 	 {{form.photo.label}}<br>
-	 {{form.photo}}
+	 {{form.photo (size=30)}}
   </div>
 
   <button type="submit" name="submit" class="btn btn-primary">Add Profile</button>

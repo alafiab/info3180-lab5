@@ -8,12 +8,6 @@ def get_new_id():
 	return new_id
 	
 
-def timeinfo():
-    d = date.today();
-    return "{0:%A}, {0:%B} {0:%d}, {0:%y}".format(d)
-
-
-
 class UserProfile(db.Model):
     __tablename__ = 'UserProfile'
     id = db.Column(db.Integer, primary_key=True)
@@ -27,12 +21,12 @@ class UserProfile(db.Model):
     email=db.Column(db.String(80))
     
 
-    def __init__(self,first_name,last_name,gender,bio,photo,location,email):
+    def __init__(self,first_name,last_name,gender,created_on,bio,photo,location,email):
         self.id=get_new_id()
         self.first_name=first_name
         self.last_name=last_name
         self.gender = gender
-        self.created_on=timeinfo()
+        self.created_on=created_on
         self.bio=bio
         self.photo=photo
         self.location=location

@@ -1,3 +1,56 @@
 body {
     padding-top: 5rem;
+    background-color: #cce6ff;
+}
+
+.photo img {
+	height: 150px;
+	width: 150px;
+	float: left;
+}
+
+.card {
+	border-radius: 10px;
+	overflow: hidden;
+	display: block;
+	margin-right: auto;
+	margin-left: auto;
+	max-width: 415px;
+	
+}
+
+.btn {
+	width: 140px;
+	margin-bottom: 20px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.top {
+    margin-bottom: 4px;
+	font-size: 80%;
+	color: #000000;
+	text-align: right
+}
+
+.listing{
+    border-radius: 10px;
+	overflow: hidden;
+	display: block;
+	width: 500px;
+	background-color: #ffffff;
+	border-top: #00BFFF solid 3px;
+	margin-bottom: 10px;
+}
+
+.data{
+    text-align: center;
+
+}
+.form{
+    border-radius: 10px;
+    border-top: #00BFFF solid 3px;
+    background-color:white;
+    padding:50px;
+    max-width: 500px;
 }
