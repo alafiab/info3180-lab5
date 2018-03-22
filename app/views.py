@@ -6,13 +6,15 @@ This file creates your application.
 """
 
 from app import app, db, models, forms
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash, session
 from flask_login import current_user
 from models import UserProfile
 from datetime import datetime, date
+from flask import send_from_directory
 from forms import UserForm
 from werkzeug.utils import secure_filename
 import os
+
 
 @app.route('/')
 def home():
@@ -25,23 +27,29 @@ def about():
     return render_template('about.html')
     
 @app.route('/profile', methods=['POST','GET'])
-@app.route('/profile/<userid>', methods= ['GET'])
-def profile(userid = None):
+def profile():
     form = UserForm()
     user= None
     if request.method =='POST' and form.validate_on_submit():
         first_name,last_name,gender,email,location,bio,photo = [form.first_name.data,form.last_name.data,form.gender.data,form.email.data,form.location.data,form.bio.data,form.photo.data]
-        if UserProfile.query.filter_by(email=email).first():
+        if not UserProfile.query.filter_by(email=email).first():
+            if gender == 'F':
+                gender = "FEMALE"
+            else:
+                gender = "MALE"
+            
             filename= secure_filename(photo.filename)
             photo.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
-            user = UserProfile(first_name = first_name, last_name = last_name, gender = gender, email = email, location = location, bio = bio)
+            user = UserProfile(first_name = first_name, last_name = last_name, 
+                gender = gender, bio = bio, photo = filename, location = location, email = email)
+            
             db.session.add(user)
             db.session.commit()
-        filename= secure_filename(photo.filename)
-        photo.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
-        return redirect(url_for('profiles'))
-    if(userid):
-        return userid
+            return redirect(url_for('profiles'))
+        else:
+            flash('This email is already linked to a profile.', 'danger')
+            return render_template('forms.html', form = form)
+        
     return render_template('forms.html',form=form)
     
 @app.route('/profiles')
@@ -50,6 +58,30 @@ def profiles():
     print(users)
     return render_template('profiles.html', users = users)
     
+@app.route('/profiles/<userid>')  
+def show_profile(userid):
+    if userid:
+        user =UserProfile.query.filter_by(id=userid).first()
+        photo= get_uploaded_images()
+        print user
+    return render_template('profile.html',user=user,photo=photo,created_on = format_date_joined())
+    
+def get_uploaded_images():
+    rootdir = os.getcwd()
+    print rootdir
+    ls =[]
+    for subdir, dirs, files in os.walk(rootdir + '/app/static/uploads'):
+        for file in files:
+            ls.append(os.path.join(subdir, file).split('/')[-1])
+    return ls
+    
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'],filename)
+    
+def format_date_joined():
+    created_on = date(2018, 3, 12)
+    return created_on.strftime("%B %e, %Y")
 
 
 

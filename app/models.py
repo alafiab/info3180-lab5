@@ -27,15 +27,17 @@ class UserProfile(db.Model):
     email=db.Column(db.String(80))
     
 
-    def __init__(self,first_name,last_name,created_on,bio,photo,location,email):
+    def __init__(self,first_name,last_name,gender,bio,photo,location,email):
         self.id=get_new_id()
         self.first_name=first_name
         self.last_name=last_name
+        self.gender = gender
         self.created_on=timeinfo()
         self.bio=bio
         self.photo=photo
         self.location=location
         self.email=email
+        
         
 
     def is_authenticated(self):
@@ -52,6 +54,3 @@ class UserProfile(db.Model):
             return unicode(self.id)  # python 2 support
         except NameError:
             return str(self.id)  # python 3 support
-
-    def __repr__(self):
-        return '<User %r>' % (self.username)
