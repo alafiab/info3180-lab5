@@ -31,7 +31,7 @@ def profile():
     form = UserForm()
     user= None
     if request.method =='POST' and form.validate_on_submit():
-        first_name,last_name,gender,email,location,bio,photo = [form.first_name.data,form.last_name.data,form.gender.data,form.created_on.data,form.email.data,form.location.data,form.bio.data,form.photo.data]
+        first_name,last_name,gender,created_on,email,location,bio,photo = [form.first_name.data,form.last_name.data,form.gender.data,format_date_joined(),form.email.data,form.location.data,form.bio.data,form.photo.data]
         if not UserProfile.query.filter_by(email=email).first():
             if gender == 'F':
                 gender = "FEMALE"
@@ -80,7 +80,7 @@ def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'],filename)
     
 def format_date_joined():
-    created_on = date(2018, 3, 12)
+    created_on = datetime(2018, 3, 12)
     return created_on.strftime("%B %e, %Y")
 
 
